@@ -68,6 +68,7 @@ function App() {
 
   return (
     <div>
+      <h1 className={classes.heading}>Netflix</h1>
       <div className={classes.wrapperCard}>
         {movies.map((movie, index) => (
           <Card
