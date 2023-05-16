@@ -26,6 +26,7 @@ const Filter = ({ onOptionChange }: Props) => {
         <option value="popularity.desc">Popularity</option>
         <option value="release_date.desc">Release date</option>
         <option value="vote_average.desc">Vote</option>
+        <option value="">None</option>
       </select>
     </div>
   );
