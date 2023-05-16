@@ -1,11 +1,11 @@
-import React, { useEffect, useState } from "react";
-import "./App.css";
-import Filter from "./components/Filter/Filter";
+import { useEffect, useState } from "react";
 import Spinner from "./components/Spinner/Spinner";
+import Card from "./components/Card/Card";
+import classes from "./App.module.css";
 
 const apiKey = "209a0952e9d4f65bafc7f673b71d9632";
 
-type Movie = {
+export type Movie = {
   id: number;
   poster: string;
   title: string;
@@ -17,15 +17,10 @@ function App() {
   const [movies, setMovies] = useState<Movie[]>([]);
   const [errorMessage, setErrorMessage] = useState("");
   const [loading, setLoading] = useState(false);
-  const [filter, setFilter] = useState("");
 
-  const getMovies = async (filter: string) => {
+  const getMovies = async () => {
     try {
       let url = `https://api.themoviedb.org/3/discover/movie?api_key=${apiKey}`;
-
-      if (filter) {
-        url += `&sort_by=${filter}`;
-      }
 
       const response = await fetch(url);
       setLoading(true);
@@ -39,7 +34,7 @@ function App() {
         id: movie.id,
         overview: movie.overview,
         title: movie.original_title,
-        poster: movie.poster_path,
+        poster: `https://image.tmdb.org/t/p/w500${movie.poster_path}`,
         rating: movie.vote_average,
       }));
 
@@ -51,18 +46,41 @@ function App() {
     }
   };
 
-  const handleOptionChange = (selectedOption: string) => {
-    setFilter(selectedOption);
-  };
-
   useEffect(() => {
-    getMovies(filter);
-  }, [filter]);
+    getMovies();
+  }, []);
+
+  if (loading) {
+    return (
+      <div className={classes.wrapper}>
+        <Spinner />
+      </div>
+    );
+  }
+
+  if (errorMessage) {
+    return (
+      <div className={classes.wrapper}>
+        <h1>{errorMessage}</h1>
+      </div>
+    );
+  }
 
   return (
-    <>
-      <Filter onOptionChange={handleOptionChange} />
-    </>
+    <div>
+      <div className={classes.wrapperCard}>
+        {movies.map((movie, index) => (
+          <Card
+            id={movie.id}
+            poster={movie.poster}
+            title={movie.title}
+            overview={movie.overview}
+            rating={movie.rating}
+            key={index}
+          />
+        ))}
+      </div>
+    </div>
   );
 }
 

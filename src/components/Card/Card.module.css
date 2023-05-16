@@ -1,0 +1,43 @@
+.card {
+  width: 250px;
+  background-color: #fff;
+  border-radius: 5px;
+  border: 1px solid #3e464b;
+  box-shadow: 0 2px 4px rgba(0, 0, 0, 0.1);
+  overflow: hidden;
+  margin: 20px 10px;
+}
+
+.poster {
+  width: 100%;
+  height: 200px;
+  object-fit: cover;
+}
+
+.details {
+  padding: 20px;
+}
+
+.title {
+  font-size: 20px;
+  font-weight: bold;
+  margin-bottom: 10px;
+}
+
+.description {
+  margin-bottom: 10px;
+}
+
+.rating {
+  display: flex;
+  align-items: center;
+}
+
+.ratingValue {
+  background-color: #3498db;
+  color: #fff;
+  font-size: 14px;
+  font-weight: bold;
+  padding: 5px 10px;
+  border-radius: 4px;
+}

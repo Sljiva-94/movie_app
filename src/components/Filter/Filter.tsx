@@ -14,6 +14,7 @@ const Filter = ({ onOptionChange }: Props) => {
     onOptionChange(optionValue);
   };
 
+  console.log(selectedOption);
   return (
     <div className={classes.inputContainer}>
       <label htmlFor="options">Sort by:</label>

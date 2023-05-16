@@ -1,0 +1,15 @@
+.wrapperCard {
+  width: 1400px;
+  max-width: 100%;
+  display: flex;
+  justify-content: center;
+  flex-wrap: wrap;
+  margin: 30px auto;
+}
+
+.wrapper {
+  height: 90vh;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+}
