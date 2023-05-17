@@ -2,16 +2,8 @@ import { useEffect, useState } from "react";
 import Spinner from "./components/Spinner/Spinner";
 import Card from "./components/Card/Card";
 import classes from "./App.module.css";
-
-const apiKey = "209a0952e9d4f65bafc7f673b71d9632";
-
-export type Movie = {
-  id: number;
-  poster: string;
-  title: string;
-  overview: string;
-  rating: number;
-};
+import { apiKey } from "./constants";
+import { Movie } from "./types";
 
 function App() {
   const [movies, setMovies] = useState<Movie[]>([]);
@@ -20,9 +12,9 @@ function App() {
 
   const getMovies = async () => {
     try {
-      let url = `https://api.themoviedb.org/3/discover/movie?api_key=${apiKey}`;
-
-      const response = await fetch(url);
+      const response = await fetch(
+        `https://api.themoviedb.org/3/discover/movie?api_key=${apiKey}`
+      );
       setLoading(true);
 
       if (!response.ok) {
@@ -30,7 +22,7 @@ function App() {
       }
       const data = await response.json();
 
-      const moviesInfo = data.results.map((movie: any) => ({
+      const moviesInfo = data.results.map((movie: Record<string, unknown>) => ({
         id: movie.id,
         overview: movie.overview,
         title: movie.original_title,
@@ -61,7 +53,7 @@ function App() {
   if (errorMessage) {
     return (
       <div className={classes.wrapper}>
-        <h1>{errorMessage}</h1>
+        <h1 className={classes.errorMessage}>{errorMessage}</h1>
       </div>
     );
   }
@@ -69,6 +61,7 @@ function App() {
   return (
     <div>
       <h1 className={classes.heading}>Netflix</h1>
+
       <div className={classes.wrapperCard}>
         {movies.map((movie, index) => (
           <Card
